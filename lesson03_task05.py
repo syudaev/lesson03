@@ -12,15 +12,20 @@ def my_func(user_str):
     result_sum = 0
     while my_bool:
         str_list = input(user_str).split()
-        user_sum = 0.0
+        user_sum \
+            = 0.0
         for i in range(len(str_list)):
-            if str_list[i].isdigit():
-                user_sum = user_sum + float(str_list[i])
-            elif str_list[i] == 'q' or str_list[i] == 'й':
+            if str_list[i] == 'q' or str_list[i] == 'й':
                 my_bool = False
-                # break это лишнее здесь, оствлось от отладки
-            else:  # случайно удалил при форматировании кода
+                break
+            elif str_list[i].isdigit():
                 user_sum = user_sum + float(str_list[i])
+            elif not str_list[i].isdigit():
+                try:
+                    user_sum = user_sum + float(str_list[i])
+                except ValueError:
+                    print("\x1b[31m", 'Ошибка! Вводите только числа!', "\x1b[0m")
+                    continue
         result_sum = result_sum + user_sum
         print('Текущая сумма >>> ', result_sum)
     return result_sum
